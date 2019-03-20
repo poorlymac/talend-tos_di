@@ -29,8 +29,8 @@ RUN \
 		true
 
 
-ARG TOS_DI_VERS=6.3.1
-ARG TOS_DI_FULLVERS=20161216_1026-V${TOS_DI_VERS}
+ARG TOS_DI_VERS=6.5.1
+ARG TOS_DI_FULLVERS=20180116_1512-V${TOS_DI_VERS}
 ARG TOS_DI_FILE=TOS_DI-${TOS_DI_FULLVERS}.zip
 
 ARG TOS_DI_CMD="curl --location https://downloads.sourceforge.net/project/talend-studio/Talend%20Open%20Studio/${TOS_DI_VERS}/${TOS_DI_FILE} --output /tmp/${TOS_DI_FILE}"

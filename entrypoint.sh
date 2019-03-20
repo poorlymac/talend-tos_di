@@ -51,14 +51,17 @@ else
 	echo Starting TOS
 	
 	groupadd -g ${GID} talend && \
-	useradd -u ${UID} -g talend -d /home/talend -s /bin/bash talend  && \
+	useradd -u ${UID} -p talend -g talend -d /home/talend -s /bin/bash talend && \
 	( [ -e /home/talend/.profile ] || cp -drp /etc/skel/. /home/talend/. ) && \
-	chown -R talend:talend /home/talend && \
+	echo talend | passwd talend --stdin \
     true
 
 	# pass XAUTH to Docker if XAUTH is set
 	[ "X$XAUTH" != "X" ] && su talend -c "xauth add unix:0 $XAUTH"
-	exec su talend -c "cd ; PATH=$JAVA_HOME/bin:$PATH exec /apps/TOS_DI/TOS_DI-linux.sh"
+	#exec su -c "cd ; PATH=$JAVA_HOME/bin:$PATH exec /apps/TOS_DI/TOS_DI-linux.sh" talend
 	#exec su talend -c "cd ; PATH=$JAVA_HOME/bin:$PATH exec /apps/TOS_DI/TOS_DI-linux-gtk-x86"
+	cd ; PATH=$JAVA_HOME/bin:$PATH exec /apps/TOS_DI/TOS_DI-linux.sh
+	#cd ; PATH=$JAVA_HOME/bin:$PATH exec /apps/TOS_DI/TOS_DI-linux-gtk-x86
+	cat /apps/TOS_DI-20180116_1512-V6.5.1/configuration/*.log
 	
 fi
